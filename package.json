@@ -1,0 +1,21 @@
+{
+  "name": "auth-service-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-image": "docker build . -t tombolton96/auth-service-test",
+    "start": "docker run --name auth-service -p 8080:8080 -d tombolton96/auth-service-test",
+    "build-dev": "docker build . -f Dockerfile.dev -t tombolton96/auth-service-test-dev",
+    "dev": "npm run build-dev && docker run --name auth-service-dev --rm -p 8080:8080 tombolton96/auth-service-test-dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
