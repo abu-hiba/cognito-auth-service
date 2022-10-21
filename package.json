@@ -8,8 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-image": "docker build . -t tombolton96/auth-service-test",
     "start": "docker run --name auth-service -p 8080:8080 -d tombolton96/auth-service-test",
+    "create-deps-volume": "docker volume create --name nodemodules",
     "build-dev": "docker build . -f Dockerfile.dev -t tombolton96/auth-service-test-dev",
-    "dev": "npm run build-dev && docker run --name auth-service-dev --rm -p 8080:8080 tombolton96/auth-service-test-dev"
+    "dev": "npm run build-dev && docker run --name auth-service-dev --rm -p 8080:8080 tombolton96/auth-service-test-dev",
+    "dev:watch": "npm run build-dev && docker run --name auth-service-dev --rm -p 8080:8080 -v `pwd`:/usr/src/app -v nodemodules:/usr/src/app/node_modules tombolton96/auth-service-test-dev"
   },
   "author": "",
   "license": "ISC",
