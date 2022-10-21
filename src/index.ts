@@ -3,9 +3,9 @@
 import express from "express"
 import bodyParser from "body-parser"
 import dotenv from "dotenv"
-import { router as authRouter } from "./src/auth.route.js"
+import { router as authRouter } from "./auth.route"
 
-const PORT = process.env.PORT || 8080
+const PORT = parseInt(process.env.PORT || "8080")
 const HOST = '0.0.0.0'
 
 const app = express()

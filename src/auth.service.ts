@@ -1,11 +1,23 @@
-import { CognitoIdentityProviderClient, ConfirmSignUpCommand, SignUpCommand } from "@aws-sdk/client-cognito-identity-provider"
+import {
+  CognitoIdentityProviderClient,
+  ConfirmSignUpCommand,
+  ConfirmSignUpCommandInput,
+  SignUpCommand,
+  SignUpCommandInput
+} from "@aws-sdk/client-cognito-identity-provider"
 
 const client = new CognitoIdentityProviderClient({
     region: process.env.AWS_REGION
 })
 
-export const signUp = async ({ username, password, email }) => {
-    const params = {
+type SignUpParams = {
+  username: string
+  password: string
+  email: string
+}
+
+export const signUp = async ({ username, password, email }: SignUpParams) => {
+    const params: SignUpCommandInput = {
         ClientId: process.env.USER_POOL_CLIENT_ID,
         Username: username,
         Password: password,
@@ -16,7 +28,7 @@ export const signUp = async ({ username, password, email }) => {
           },
         ],
     }
-    
+
     const command = new SignUpCommand(params)
 
     try {
@@ -26,8 +38,13 @@ export const signUp = async ({ username, password, email }) => {
       }
 }
 
-export const confirmSignUp = async ({ username, confirmationCode }) => {
-  const params = {
+type ConfirmParams = {
+  username: string
+  confirmationCode: string
+}
+
+export const confirmSignUp = async ({ username, confirmationCode }: ConfirmParams) => {
+  const params: ConfirmSignUpCommandInput = {
     ClientId: process.env.USER_POOL_CLIENT_ID,
     Username: username,
     ConfirmationCode: confirmationCode,

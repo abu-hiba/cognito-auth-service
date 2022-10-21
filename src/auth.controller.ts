@@ -1,6 +1,7 @@
-import * as Auth from './auth.service.js'
+import { NextFunction, Request, Response } from 'express'
+import * as Auth from './auth.service'
 
-export const signUp = async (req, res, next) => {
+export const signUp = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = await Auth.signUp(req.body)
         res.json({ data })
@@ -10,7 +11,7 @@ export const signUp = async (req, res, next) => {
     }
 }
 
-export const confirmSignUp = async (req, res, next) => {
+export const confirmSignUp = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = await Auth.confirmSignUp(req.body)
         res.json({ data })
