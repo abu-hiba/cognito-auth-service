@@ -8,10 +8,6 @@ You will need Docker installed and to have set environment variables.
 $ npm i
 $ npm run dev
 ```
-### For live reloading
-```
-$ npm run dev:watch
-```
 
 ## Apply terraform changes
 You will need terraform and the aws cli installed.
