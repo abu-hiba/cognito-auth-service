@@ -4,3 +4,5 @@ import * as controller from "./auth.controller.js"
 export const router = express.Router()
 
 router.post('/signup', controller.signUp)
+
+router.post('/confirm', controller.confirmSignUp)

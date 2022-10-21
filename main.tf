@@ -14,6 +14,7 @@ provider "aws" {
 
 resource "aws_cognito_user_pool" "user_pool_1" {
   name = "First user pool"
+  auto_verified_attributes = ["email"]
 }
 
 resource "aws_cognito_user_pool_client" "auth_service" {
