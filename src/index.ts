@@ -3,7 +3,7 @@
 import express from "express"
 import bodyParser from "body-parser"
 import dotenv from "dotenv"
-import { router as authRouter } from "./auth.route"
+import { authRouter } from "./auth/auth.route"
 
 const PORT = parseInt(process.env.PORT || "8080")
 const HOST = '0.0.0.0'
