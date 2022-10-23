@@ -2,6 +2,8 @@ import {
   CognitoIdentityProviderClient,
   ConfirmSignUpCommand,
   ConfirmSignUpCommandInput,
+  ResendConfirmationCodeCommand,
+  ResendConfirmationCodeCommandInput,
   SignUpCommand,
   SignUpCommandInput
 } from "@aws-sdk/client-cognito-identity-provider"
@@ -51,6 +53,25 @@ export const confirmSignUp = async ({ username, confirmationCode }: ConfirmParam
   }
 
   const command = new ConfirmSignUpCommand(params)
+
+  try {
+    return await client.send(command)
+  } catch (error) {
+    throw error
+  }
+}
+
+type ResendConfirmParams = {
+  username: string
+}
+
+export const resendConfirmationCode = async ({ username }: ResendConfirmParams) => {
+  const params: ResendConfirmationCodeCommandInput = {
+    ClientId: process.env.USER_POOL_CLIENT_ID,
+    Username: username,
+  }
+
+  const command = new ResendConfirmationCodeCommand(params)
 
   try {
     return await client.send(command)

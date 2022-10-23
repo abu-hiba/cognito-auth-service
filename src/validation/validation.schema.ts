@@ -23,3 +23,7 @@ export const confirmSignUp = Joi.object({
         .max(2048)
         .required(),
 })
+
+export const resendConfirmationCode = Joi.object({
+    username: usernameSchema
+})

@@ -20,3 +20,13 @@ export const confirmSignUp: Handler = async (req, res, next) => {
         next(error)
     }
 }
+
+export const resendConfirmationCode: Handler = async (req, res, next) => {
+    try {
+        const data = await Auth.resendConfirmationCode(req.body)
+        res.json({ data })
+    } catch (error) {
+        console.error(`Error resending confirmation code: ${error}`)
+        next(error)
+    }
+}
