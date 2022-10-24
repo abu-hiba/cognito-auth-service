@@ -30,3 +30,13 @@ export const resendConfirmationCode: Handler = async (req, res, next) => {
         next(error)
     }
 }
+
+export const signIn: Handler = async (req, res, next) => {
+    try {
+        const data = await Auth.signIn(req.body)
+        res.json({ data })
+    } catch (error) {
+        console.error(`Error authorising user: ${error}`)
+        next(error)
+    }
+}

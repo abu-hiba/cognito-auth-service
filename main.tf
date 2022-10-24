@@ -13,7 +13,7 @@ provider "aws" {
 }
 
 resource "aws_cognito_user_pool" "user_pool_1" {
-  name = "First user pool"
+  name                     = "First user pool"
   auto_verified_attributes = ["email"]
 }
 
@@ -21,4 +21,6 @@ resource "aws_cognito_user_pool_client" "auth_service" {
   name = "auth_service"
 
   user_pool_id = aws_cognito_user_pool.user_pool_1.id
+
+  explicit_auth_flows = ["ALLOW_ADMIN_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
 }

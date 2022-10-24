@@ -1,4 +1,6 @@
 import {
+  AdminInitiateAuthCommand,
+  AdminInitiateAuthCommandInput,
   CognitoIdentityProviderClient,
   ConfirmSignUpCommand,
   ConfirmSignUpCommandInput,
@@ -72,6 +74,31 @@ export const resendConfirmationCode = async ({ username }: ResendConfirmParams) 
   }
 
   const command = new ResendConfirmationCodeCommand(params)
+
+  try {
+    return await client.send(command)
+  } catch (error) {
+    throw error
+  }
+}
+
+type SignInParams = {
+  username: string
+  password: string
+}
+
+export const signIn = async ({ username, password }: SignInParams) => {
+  const params: AdminInitiateAuthCommandInput = {
+    ClientId: process.env.USER_POOL_CLIENT_ID,
+    UserPoolId: process.env.USER_POOL_ID,
+    AuthFlow: "ADMIN_USER_PASSWORD_AUTH",
+    AuthParameters: {
+      USERNAME: username,
+      PASSWORD: password,
+    },
+  }
+
+  const command = new AdminInitiateAuthCommand(params)
 
   try {
     return await client.send(command)

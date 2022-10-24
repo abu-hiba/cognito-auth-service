@@ -27,3 +27,11 @@ export const confirmSignUp = Joi.object({
 export const resendConfirmationCode = Joi.object({
     username: usernameSchema
 })
+
+export const signIn = Joi.object({
+    username: usernameSchema,
+    password: Joi.string()
+        .min(1)
+        .max(256)
+        .required(),
+})

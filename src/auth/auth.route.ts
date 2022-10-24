@@ -10,3 +10,5 @@ authRouter.post('/signup', validateRequest(Schema.signUp), Controller.signUp)
 authRouter.post('/confirm', validateRequest(Schema.confirmSignUp), Controller.confirmSignUp)
 
 authRouter.post('/resend-code', validateRequest(Schema.resendConfirmationCode), Controller.resendConfirmationCode)
+
+authRouter.post('/signin', validateRequest(Schema.signIn), Controller.signIn)
