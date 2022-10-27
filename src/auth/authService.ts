@@ -9,7 +9,7 @@ import {
   SignUpCommand,
   SignUpCommandInput
 } from "@aws-sdk/client-cognito-identity-provider"
-import { getSecret } from "../util/secretsManager"
+import { getSecret } from "../lib/secretsManager"
 
 const client = new CognitoIdentityProviderClient({
   region: process.env.AWS_REGION
