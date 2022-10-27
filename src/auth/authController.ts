@@ -1,5 +1,5 @@
 import type { Handler } from 'express'
-import Auth from './auth.service'
+import Auth from './authService'
 
 const signUp: Handler = async (req, res, next) => {
     try {

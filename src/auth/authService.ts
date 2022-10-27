@@ -15,7 +15,7 @@ const client = new CognitoIdentityProviderClient({
   region: process.env.AWS_REGION
 })
 
-type SignUpParams = {
+export type SignUpParams = {
   username: string
   password: string
   email: string
@@ -45,7 +45,7 @@ const signUp = async ({ username, password, email }: SignUpParams) => {
     }
 }
 
-type ConfirmParams = {
+export type ConfirmParams = {
   username: string
   confirmationCode: string
 }
@@ -68,7 +68,7 @@ const confirmSignUp = async ({ username, confirmationCode }: ConfirmParams) => {
   }
 }
 
-type ResendConfirmParams = {
+export type ResendConfirmParams = {
   username: string
 }
 
@@ -89,7 +89,7 @@ const resendConfirmationCode = async ({ username }: ResendConfirmParams) => {
   }
 }
 
-type SignInParams = {
+export type SignInParams = {
   username: string
   password: string
 }
