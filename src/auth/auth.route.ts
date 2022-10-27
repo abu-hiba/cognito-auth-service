@@ -1,14 +1,14 @@
 import express from "express"
-import * as Controller from "./auth.controller"
-import { validateRequest } from "../validation/validation.middleware"
-import * as Schema from "../validation/validation.schema"
+import controller from "./auth.controller"
+import { validateRequestBody } from "../validation/validation.middleware"
+import schema from "../validation/validation.schema"
 
 export const authRouter = express.Router()
 
-authRouter.post('/signup', validateRequest(Schema.signUp), Controller.signUp)
+authRouter.post('/signup', validateRequestBody(schema.signUp), controller.signUp)
 
-authRouter.post('/confirm', validateRequest(Schema.confirmSignUp), Controller.confirmSignUp)
+authRouter.post('/confirm', validateRequestBody(schema.confirmSignUp), controller.confirmSignUp)
 
-authRouter.post('/resend-code', validateRequest(Schema.resendConfirmationCode), Controller.resendConfirmationCode)
+authRouter.post('/resend-code', validateRequestBody(schema.resendConfirmationCode), controller.resendConfirmationCode)
 
-authRouter.post('/signin', validateRequest(Schema.signIn), Controller.signIn)
+authRouter.post('/signin', validateRequestBody(schema.signIn), controller.signIn)

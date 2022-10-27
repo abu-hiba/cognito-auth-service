@@ -1,7 +1,7 @@
-import { Handler } from 'express'
-import * as Auth from './auth.service'
+import type { Handler } from 'express'
+import Auth from './auth.service'
 
-export const signUp: Handler = async (req, res, next) => {
+const signUp: Handler = async (req, res, next) => {
     try {
         const data = await Auth.signUp(req.body)
         res.json({ data })
@@ -11,7 +11,7 @@ export const signUp: Handler = async (req, res, next) => {
     }
 }
 
-export const confirmSignUp: Handler = async (req, res, next) => {
+const confirmSignUp: Handler = async (req, res, next) => {
     try {
         const data = await Auth.confirmSignUp(req.body)
         res.json({ data })
@@ -21,7 +21,7 @@ export const confirmSignUp: Handler = async (req, res, next) => {
     }
 }
 
-export const resendConfirmationCode: Handler = async (req, res, next) => {
+const resendConfirmationCode: Handler = async (req, res, next) => {
     try {
         const data = await Auth.resendConfirmationCode(req.body)
         res.json({ data })
@@ -31,7 +31,7 @@ export const resendConfirmationCode: Handler = async (req, res, next) => {
     }
 }
 
-export const signIn: Handler = async (req, res, next) => {
+const signIn: Handler = async (req, res, next) => {
     try {
         const data = await Auth.signIn(req.body)
         res.json({ data })
@@ -39,4 +39,11 @@ export const signIn: Handler = async (req, res, next) => {
         console.error(`Error authorising user: ${error}`)
         next(error)
     }
+}
+
+export default {
+    signUp,
+    confirmSignUp,
+    resendConfirmationCode,
+    signIn,
 }

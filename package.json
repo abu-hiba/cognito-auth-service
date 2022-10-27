@@ -11,7 +11,7 @@
     "docker:dev": "npm run docker-build:dev && docker run --name auth-service-dev --rm -p 8080:8080 -v `pwd`:/usr/src/app -v nodemodules:/usr/src/app/node_modules tombolton96/auth-service-test-dev",
     "dev": "nodemon src/index.ts",
     "start": "ts-node build/index.js",
-    "build": "ts -p ."
+    "build": "tsc -p ."
   },
   "author": "",
   "license": "ISC",

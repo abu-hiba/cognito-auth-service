@@ -1,15 +1,21 @@
-import { Handler } from "express"
-import Joi from "joi"
+import type { Handler } from "express"
+import type { Schema } from "joi"
 
-export const validateRequest = (schema: Joi.Schema, property: 'body' | 'query' = 'body'): Handler => {
+type RequestProperty = "body" | "query" | "params"
+
+const validateRequest = (property: RequestProperty) => (schema: Schema): Handler => {
     return (req, res, next) => {
-        const { error } = schema.validate(req[property])
+        const { error, value } = schema.validate(req[property])
 
         if (error) {
             console.log(`Invalid request: ${error}`)
-            res.status(422).json({ error })
+            res.status(400).json({ error })
         } else {
+            req[property] = value
             next()
         }
     }
 }
+
+export const validateRequestBody = validateRequest('body')
+export const validateRequestQuery = validateRequest('query')

@@ -6,7 +6,7 @@ const usernameSchema = Joi.string()
     .max(30)
     .required()
 
-export const signUp = Joi.object({
+const signUp = Joi.object({
     username: usernameSchema,
     password: Joi.string()
         .pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\^$*.[\]{}()?"!@#%&/\\,><':;|_~`=+\- ])[A-Za-z0-9^$*.[\]{}()?"!@#%&/\\,><':;|_~`=+\- ]{8,256}$/)
@@ -16,7 +16,7 @@ export const signUp = Joi.object({
         .required(),
 })
 
-export const confirmSignUp = Joi.object({
+const confirmSignUp = Joi.object({
     username: usernameSchema,
     confirmationCode: Joi.string()
         .min(1)
@@ -24,14 +24,21 @@ export const confirmSignUp = Joi.object({
         .required(),
 })
 
-export const resendConfirmationCode = Joi.object({
+const resendConfirmationCode = Joi.object({
     username: usernameSchema
 })
 
-export const signIn = Joi.object({
+const signIn = Joi.object({
     username: usernameSchema,
     password: Joi.string()
         .min(1)
         .max(256)
         .required(),
 })
+
+export default {
+    signUp,
+    confirmSignUp,
+    resendConfirmationCode,
+    signIn,
+}

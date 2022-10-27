@@ -21,7 +21,7 @@ type SignUpParams = {
   email: string
 }
 
-export const signUp = async ({ username, password, email }: SignUpParams) => {
+const signUp = async ({ username, password, email }: SignUpParams) => {
   const userPoolClientId = await getSecret('auth_service_user_pool_client_id')
 
   const params: SignUpCommandInput = {
@@ -50,7 +50,7 @@ type ConfirmParams = {
   confirmationCode: string
 }
 
-export const confirmSignUp = async ({ username, confirmationCode }: ConfirmParams) => {
+const confirmSignUp = async ({ username, confirmationCode }: ConfirmParams) => {
   const userPoolClientId = await getSecret('auth_service_user_pool_client_id')
 
   const params: ConfirmSignUpCommandInput = {
@@ -72,7 +72,7 @@ type ResendConfirmParams = {
   username: string
 }
 
-export const resendConfirmationCode = async ({ username }: ResendConfirmParams) => {
+const resendConfirmationCode = async ({ username }: ResendConfirmParams) => {
   const userPoolClientId = await getSecret('auth_service_user_pool_client_id')
 
   const params: ResendConfirmationCodeCommandInput = {
@@ -94,7 +94,7 @@ type SignInParams = {
   password: string
 }
 
-export const signIn = async ({ username, password }: SignInParams) => {
+const signIn = async ({ username, password }: SignInParams) => {
   const userPoolClientId = await getSecret('auth_service_user_pool_client_id')
   const userPoolId = await getSecret('auth_service_user_pool_id')
 
@@ -115,4 +115,11 @@ export const signIn = async ({ username, password }: SignInParams) => {
   } catch (error) {
     throw error
   }
+}
+
+export default {
+  signUp,
+  confirmSignUp,
+  resendConfirmationCode,
+  signIn,
 }
