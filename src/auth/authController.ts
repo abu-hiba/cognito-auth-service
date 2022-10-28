@@ -3,8 +3,8 @@ import Auth from './authService'
 
 const signUp: Handler = async (req, res, next) => {
     try {
-        const data = await Auth.signUp(req.body)
-        res.json({ data })
+        await Auth.signUp(req.body)
+        res.json({ emailSent: true })
     } catch (error) {
         console.error(`Error signing up user: ${error}`)
         next(error)
@@ -13,8 +13,8 @@ const signUp: Handler = async (req, res, next) => {
 
 const confirmSignUp: Handler = async (req, res, next) => {
     try {
-        const data = await Auth.confirmSignUp(req.body)
-        res.json({ data })
+        await Auth.confirmSignUp(req.body)
+        res.json({ username: req.body.username })
     } catch (error) {
         console.error(`Error confirming user: ${error}`)
         next(error)
@@ -23,8 +23,8 @@ const confirmSignUp: Handler = async (req, res, next) => {
 
 const resendConfirmationCode: Handler = async (req, res, next) => {
     try {
-        const data = await Auth.resendConfirmationCode(req.body)
-        res.json({ data })
+        await Auth.resendConfirmationCode(req.body)
+        res.json({ emailSent: true })
     } catch (error) {
         console.error(`Error resending confirmation code: ${error}`)
         next(error)
@@ -33,8 +33,9 @@ const resendConfirmationCode: Handler = async (req, res, next) => {
 
 const signIn: Handler = async (req, res, next) => {
     try {
-        const data = await Auth.signIn(req.body)
-        res.json({ data })
+        const { AuthenticationResult } = await Auth.signIn(req.body)
+        res.cookie("cognito_access", AuthenticationResult?.AccessToken, { maxAge: 60*1000, httpOnly: true });
+        res.json({ username: req.body.username })
     } catch (error) {
         console.error(`Error authorising user: ${error}`)
         next(error)

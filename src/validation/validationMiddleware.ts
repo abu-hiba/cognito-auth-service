@@ -1,5 +1,5 @@
 import type { Handler } from "express"
-import type { DefinedError, ValidateFunction } from "ajv"
+import type { ValidateFunction } from "ajv"
 
 type RequestProperty = "body" | "query" | "params"
 
@@ -7,15 +7,16 @@ const validateRequest = (property: RequestProperty) => (validate: ValidateFuncti
     return (req, res, next) => {
         if (validate(req[property])) {
             next()
-        } else {
-            const errors = validate.errors as DefinedError[]
+        } else if (validate.errors) {
+            const { errors } = validate
             const validationMessage = errors[0].message
             const param = errors[0].instancePath.split("/").slice(-1)[0]
 
-            const message = `Invalid request: ${param} ${validationMessage}`
-            const error = { type: "BadRequest", message, status: 400 }
-
-            res.status(400).json({ error })
+            res.status(400)
+            next(new Error(`Invalid request: ${param} ${validationMessage}`))
+        } else {
+            res.status(500)
+            next(new Error("Internal server error"))
         }
     }
 }
