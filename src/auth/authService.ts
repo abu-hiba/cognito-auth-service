@@ -9,17 +9,12 @@ import {
   SignUpCommand,
   SignUpCommandInput
 } from "@aws-sdk/client-cognito-identity-provider"
+import type { SignUpParams, ConfirmParams, ResendConfirmParams, SignInParams } from "./authTypes"
 import { getSecret } from "../lib/secretsManager"
 
 const client = new CognitoIdentityProviderClient({
   region: process.env.AWS_REGION
 })
-
-export type SignUpParams = {
-  username: string
-  password: string
-  email: string
-}
 
 const signUp = async ({ username, password, email }: SignUpParams) => {
   const userPoolClientId = await getSecret('auth_service_user_pool_client_id')
@@ -45,11 +40,6 @@ const signUp = async ({ username, password, email }: SignUpParams) => {
     }
 }
 
-export type ConfirmParams = {
-  username: string
-  confirmationCode: string
-}
-
 const confirmSignUp = async ({ username, confirmationCode }: ConfirmParams) => {
   const userPoolClientId = await getSecret('auth_service_user_pool_client_id')
 
@@ -68,10 +58,6 @@ const confirmSignUp = async ({ username, confirmationCode }: ConfirmParams) => {
   }
 }
 
-export type ResendConfirmParams = {
-  username: string
-}
-
 const resendConfirmationCode = async ({ username }: ResendConfirmParams) => {
   const userPoolClientId = await getSecret('auth_service_user_pool_client_id')
 
@@ -87,11 +73,6 @@ const resendConfirmationCode = async ({ username }: ResendConfirmParams) => {
   } catch (error) {
     throw error
   }
-}
-
-export type SignInParams = {
-  username: string
-  password: string
 }
 
 const signIn = async ({ username, password }: SignInParams) => {

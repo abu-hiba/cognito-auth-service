@@ -1,5 +1,5 @@
 import type { JSONSchemaType } from "ajv"
-import type { ConfirmParams, ResendConfirmParams, SignInParams, SignUpParams } from "../auth/authService"
+import type { ConfirmParams, ResendConfirmParams, SignInParams, SignUpParams } from "../auth"
 
 const usernameSchema: JSONSchemaType<string> = {
     type: "string",

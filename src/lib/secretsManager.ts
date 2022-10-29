@@ -11,7 +11,6 @@ export const getSecret = async (secretId: string) => {
         const { SecretString } = await client.send(command)
         return SecretString
     } catch (error) {
-        console.log(`Error retrieving secret: ${secretId}. ${error}`)
-        throw error
+        console.log(`Error retrieving secret: ${secretId}.\n${error}`)
     }
 }

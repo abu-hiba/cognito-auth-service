@@ -13,10 +13,10 @@ const validateRequest = (property: RequestProperty) => (validate: ValidateFuncti
             const param = errors[0].instancePath.split("/").slice(-1)[0]
 
             res.status(400)
-            next(new Error(`Invalid request: ${param} ${validationMessage}`))
+            throw new Error(`Invalid request: ${param} ${validationMessage}`)
         } else {
             res.status(500)
-            next(new Error("Internal server error"))
+            throw new Error("Internal server error")
         }
     }
 }
