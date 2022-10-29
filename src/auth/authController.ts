@@ -33,7 +33,6 @@ const resendConfirmationCode: Handler = async (req, res, next) => {
 
 const signIn: Handler = async (req, res, next) => {
     try {
-        console.log(process.env.NODE_ENV)
         const { AuthenticationResult } = await Auth.signIn(req.body)
         res.cookie("cognito_access", AuthenticationResult?.AccessToken, { maxAge: 60*1000, httpOnly: process.env.NODE_ENV !== 'production' });
         res.json({ username: req.body.username })

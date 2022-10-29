@@ -2,6 +2,7 @@ import express from "express"
 import bodyParser from "body-parser"
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
+import morgan from "morgan"
 import { authMiddleware, authRouter } from "./auth"
 
 const PORT = parseInt(process.env.PORT || "8080")
@@ -13,6 +14,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(cookieParser())
+
+app.use(morgan("combined"))
 
 app.use('/auth', authRouter)
 
