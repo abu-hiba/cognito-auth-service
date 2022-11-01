@@ -1,4 +1,4 @@
-# auth-service-test
+# cognito-auth-service
 
 A simple POC microservice for authentication using AWS cognito, including terraform code for provisioning the neccessary infrastructure.
 
