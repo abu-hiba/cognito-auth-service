@@ -5,7 +5,6 @@ import { getSecret } from "../lib/secretsManager"
 export const authMiddleware: Handler = async (req, res, next) => {
     const userPoolId = await getSecret('auth_service_user_pool_id')
     const clientId = await getSecret('auth_service_user_pool_client_id')
-    const { cognito_access } = req.cookies
 
     if (!userPoolId) {
         console.log("Could not get user pool ID")
@@ -24,7 +23,8 @@ export const authMiddleware: Handler = async (req, res, next) => {
     })
 
     try {
-        await verifier.verify(cognito_access)
+        console.log("session:", req.session)
+        // await verifier.verify(cognito_access)
         next()
       } catch {
         res.status(401)

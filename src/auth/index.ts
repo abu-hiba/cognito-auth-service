@@ -1,3 +1,3 @@
-export { authRouter } from "./authRoute"
+export { authRouter } from "./authRouter"
 export { authMiddleware } from "./authMiddleware"
 export * from "./authTypes"

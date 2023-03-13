@@ -1,4 +1,5 @@
 import type { Handler } from 'express'
+import { SessionData } from 'express-session'
 import Auth from './authService'
 
 const signUp: Handler = async (req, res, next) => {
@@ -32,9 +33,12 @@ const resendConfirmationCode: Handler = async (req, res, next) => {
 }
 
 const signIn: Handler = async (req, res, next) => {
+    const { session, body } = req
     try {
         const { AuthenticationResult } = await Auth.signIn(req.body)
-        res.cookie("cognito_access", AuthenticationResult?.AccessToken, { maxAge: 60*1000, httpOnly: process.env.NODE_ENV !== 'production' });
+        session.userName = body.username
+        session.refreshToken = AuthenticationResult?.RefreshToken
+        session.accessToken = AuthenticationResult?.AccessToken 
         res.json({ username: req.body.username })
     } catch (error) {
         console.error(`Error authorising user: ${error}`)

@@ -1,28 +1,19 @@
-import express from "express"
-import bodyParser from "body-parser"
 import dotenv from "dotenv"
-import cookieParser from "cookie-parser"
-import morgan from "morgan"
-import { authMiddleware, authRouter } from "./auth"
+import App from './app'
 
-const PORT = parseInt(process.env.PORT || "8080")
+(async () => {
+  try {
+    dotenv.config()
 
-const app = express()
-dotenv.config()
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
-app.use(cookieParser())
-
-app.use(morgan("combined"))
-
-app.use('/auth', authRouter)
-
-app.use('/example', authMiddleware, (req, res, next) => {
-  res.json({ loggedIn: true })
-})
-
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`)
-})
+    const app = await App()
+    
+    const PORT = parseInt(process.env.PORT || "8080")  
+    
+    app.listen(PORT, () => {
+      console.log(`Server listening on port ${PORT}`)
+    })
+  } catch (err) {
+    console.error(err)
+    process.exitCode = 1
+  }
+})()
