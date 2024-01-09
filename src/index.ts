@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
 import morgan from "morgan"
 import { authMiddleware, authRouter } from "./auth"
+import { SignUpController } from "./controllers/signUp.controller"
 
 const PORT = parseInt(process.env.PORT || "8080")
 
@@ -18,6 +19,13 @@ app.use(cookieParser())
 app.use(morgan("combined"))
 
 app.use('/auth', authRouter)
+
+const router = express.Router();
+
+const signUp = new SignUpController();
+router[signUp.getMethod()](signUp.getRoute(), signUp.handler);
+
+app.use('/authn', router);
 
 app.use('/example', authMiddleware, (req, res, next) => {
   res.json({ loggedIn: true })
