@@ -1,4 +1,4 @@
-import { Handler, NextFunction, Request, Response } from 'express';
+import { Handler } from 'express';
 
 export enum HttpMethod {
     POST = 'post',
@@ -13,7 +13,7 @@ export abstract class Controller {
         private route: string,
     ) {}
 
-    handler(req: Request, res: Response, next: NextFunction) {};
+    handler: Handler = () => {};
     getMethod() { return this.method; }
     getRoute() { return this.route; }
 }
